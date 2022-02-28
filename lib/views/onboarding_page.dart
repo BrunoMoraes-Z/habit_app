@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:habit_app/app_styles.dart';
-import 'package:habit_app/main.dart';
-import 'package:habit_app/model/onboard_data.dart';
-import 'package:habit_app/size_configs.dart';
+import 'package:habbit_app/app_styles.dart';
+import 'package:habbit_app/main.dart';
+import 'package:habbit_app/model/onboard_data.dart';
+import 'package:habbit_app/size_config.dart';
+import 'package:habbit_app/views/authentication/sign_up_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import './pages.dart';
 import '../widgets/widgets.dart';
 
 class OnBoardingPage extends StatefulWidget {
-  OnBoardingPage({Key? key}) : super(key: key);
-
   @override
   _OnBoardingPageState createState() => _OnBoardingPageState();
 }
@@ -33,7 +31,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   Future setSeenOnboard() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    seenOnboard = await prefs.setBool('seenOnboard', true);
+    seenOnBoard = await prefs.setBool('seenOnboard', true);
   }
 
   @override
@@ -63,21 +61,21 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 itemCount: onboardingContents.length,
                 itemBuilder: (context, index) => Column(
                   children: [
-                    SizedBox(height: sizeV * 5),
+                    SizedBox(height: sizeV * 4),
                     Text(
                       onboardingContents[index].title,
                       style: kTitle,
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: sizeV * 5),
+                    SizedBox(height: sizeV * 4),
                     Container(
-                      height: sizeV * 50,
+                      height: sizeV * 40,
                       child: Image.asset(
                         onboardingContents[index].image,
                         fit: BoxFit.contain,
                       ),
                     ),
-                    SizedBox(height: sizeV * 5),
+                    SizedBox(height: sizeV * 4),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: RichText(
@@ -100,7 +98,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: sizeV * 5),
+                    SizedBox(height: sizeV * 4),
                   ],
                 ),
               ),
@@ -110,10 +108,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               child: Column(
                 children: [
                   currentPage == onboardingContents.length - 1
-                      ? DefaultTextButton(
-                          buttonName: 'Get Started',
-                          bgColor: kPrimaryColor,
-                          onPressed: () {
+                      ? MyTextButton(
+                          text: 'Get Started',
+                          backgroundColor: kPrimaryColor,
+                          onClick: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -125,9 +123,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            OnBoardingNavBtn(
+                            OnboardingNavButton(
                               name: 'Skip',
-                              onPressed: () {
+                              onClick: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -140,9 +138,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                               children: List.generate(onboardingContents.length,
                                   (index) => dotIndicator(index)),
                             ),
-                            OnBoardingNavBtn(
+                            OnboardingNavButton(
                               name: 'Next',
-                              onPressed: () {
+                              onClick: () {
                                 _pageController.nextPage(
                                   duration: Duration(milliseconds: 400),
                                   curve: Curves.easeInOut,

@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:habit_app/app_styles.dart';
+import 'package:habbit_app/app_styles.dart';
 
-class OnBoardingNavBtn extends StatelessWidget {
-  const OnBoardingNavBtn({
+class OnboardingNavButton extends StatelessWidget {
+  const OnboardingNavButton({
     Key? key,
     required this.name,
-    required this.onPressed,
+    required this.onClick,
   }) : super(key: key);
 
   final String name;
-  final VoidCallback onPressed;
+  final VoidCallback onClick;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: onClick,
       borderRadius: BorderRadius.circular(6),
       splashColor: Colors.black12,
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(4),
         child: Text(
           name,
           style: kBodyText1,
